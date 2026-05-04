@@ -1,10 +1,10 @@
-<div class="resume-wrapper">
+<!-- Контейнер з'явиться лише тоді, коли дані завантажені -->
+<div class="resume-wrapper" *ngIf="data; else loadingTemplate">
   <div class="resume-container">
 
-    <!-- ЛІВА КОЛОНКА (50%) -->
+    <!-- Ліва колонка -->
     <aside class="column-left">
       <app-header [person]="data.person"></app-header>
-
       <div class="content-padding">
         <app-sidebar
           [aboutMe]="data.person.aboutMe"
@@ -14,69 +14,60 @@
       </div>
     </aside>
 
-    <!-- ПРАВА КОЛОНКА (50%) -->
+    <!-- Права колонка -->
     <main class="column-right">
       <div class="content-padding">
 
-        <!-- Секція CONTACT ME (залишаємо в app для простоти) -->
+        <!-- Контакти -->
         <section class="section">
           <div class="right-section-header" (click)="toggleSection('contact')" style="cursor: pointer;">
             <img src="images/hum_ic.jpg" class="header-icon" alt="contact">
-            <h3 class="title-dark">
-              CONTACT ME
-              <span class="arrow" [class.rotated]="!sectionStatus.contact">▼</span>
-            </h3>
+            <h3 class="title-dark">CONTACT ME <span class="arrow" [class.rotated]="!sectionStatus.contact">▼</span></h3>
           </div>
-          <div class="timeline-container dark-line" *ngIf="sectionStatus.contact">
-            <div class="timeline-item">
-              <ul class="contact-details">
-                <li><b>Phone:</b> {{ data.person.phone }}</li>
-                <li><b>Email:</b> {{ data.person.email }}</li>
-                <li><b>Address:</b> {{ data.person.address }}</li>
-              </ul>
-            </div>
-          </div>
+          <ul class="contact-details" *ngIf="sectionStatus.contact">
+            <li><b>Phone:</b> +1-718-310-5588</li>
+            <li><b>Email:</b> yourinfo@gmail.com</li>
+            <li><b>Address:</b> 769 Prudence Street Lincoln Park, MI 48146</li>
+          </ul>
         </section>
 
-        <!-- Секція JOB EXPERIENCE (окремий компонент) -->
+        <!-- Досвід роботи -->
         <app-experience
           [jobs]="data.experience"
           [isOpen]="sectionStatus.experience"
           (toggle)="toggleSection('experience')">
         </app-experience>
 
-        <!-- Секція REFERENCES (залишаємо в app) -->
-        <!-- Секція REFERENCES у правій колонці -->
+        <!-- Референси -->
         <section class="section">
           <div class="right-section-header" (click)="toggleSection('references')" style="cursor: pointer;">
             <img src="images/soc_ic.jpg" class="header-icon" alt="references">
-            <h3 class="title-dark">
-              REFERENCES
-              <span class="arrow" [class.rotated]="!sectionStatus.references">▼</span>
-            </h3>
+            <h3 class="title-dark">REFERENCES <span class="arrow" [class.rotated]="!sectionStatus.references">▼</span></h3>
           </div>
-
-          <!-- Додаємо ці класи для відображення лінії -->
           <div class="timeline-container dark-line" *ngIf="sectionStatus.references">
-            <div class="timeline-item">
+            <div class="timeline-item" *ngFor="let ref of data.references">
               <div class="reference-content">
-                <h4 class="ref-name">Darwin B. Magana</h4>
-                <p class="ref-info">Tel: +1-970-533-3393</p>
-                <p class="ref-info">Email: www.yourwebsite.com</p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="reference-content">
-                <h4 class="ref-name">Robert J. Delvin</h4>
-                <p class="ref-info">Tel: +1-908-987-5103</p>
-                <p class="ref-info">Email: www.yourwebsite.com</p>
+                <h4 class="ref-name">{{ ref.name }}</h4>
+                <p class="ref-info">Tel: {{ ref.tel }}</p>
+                <p class="ref-info">Email: {{ ref.email }}</p>
               </div>
             </div>
           </div>
         </section>
 
+        <!-- Кнопка для перевірки POST-запиту -->
+        <button (click)="saveResume()" class="save-btn">Зберегти зміни на сервері</button>
+
       </div>
     </main>
+
   </div>
 </div>
+
+<!-- Шаблон, який відображається під час запиту -->
+<ng-template #loadingTemplate>
+  <div class="loading-screen">
+    <h2 *ngIf="!errorMessage">Завантаження даних...</h2>
+    <h2 *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</h2>
+  </div>
+</ng-template>

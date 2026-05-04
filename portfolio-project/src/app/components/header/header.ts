@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,9 +6,16 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './header.html',
-  styleUrl: './header.scss',
-  encapsulation: ViewEncapsulation.None // Дозволяє використовувати стилі з app.scss
+  styleUrl: './header.scss'
 })
 export class HeaderComponent {
+  // Дані приходять з app.html через [person]="data.person"
   @Input() person: any;
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  // Метод для оновлення, якщо дані зміняться динамічно
+  ngOnChanges() {
+    this.cdr.detectChanges();
+  }
 }

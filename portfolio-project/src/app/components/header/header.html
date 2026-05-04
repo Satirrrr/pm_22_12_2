@@ -1,11 +1,20 @@
-<div class="header-grid" *ngIf="person">
+<header class="header-grid" *ngIf="person">
+  <!-- Блок з вертикальним текстом -->
   <div class="identity-block">
-    <p class="vertical-text job-title">{{ person.position }}</p>
-    <h1 class="vertical-text name">{{ person.firstName }} <b>{{ person.lastName }}</b></h1>
-  </div>
-  <div class="photo-placeholder">
-    <div class="photo-border">
-      <img [src]="person.photo" alt="Profile" *ngIf="person.photo">
+    <div class="vertical-text job-title">
+      {{ person.jobTitle }}
+    </div>
+    <div class="vertical-text name">
+      <!-- Розбиваємо ім'я на частини, щоб зробити перше слово жирним -->
+      <b>{{ person.name.split(' ')[0] }}</b>
+      {{ person.name.split(' ').slice(1).join(' ') }}
     </div>
   </div>
-</div>
+
+  <!-- Блок з фотографією -->
+  <div class="photo-placeholder">
+    <div class="photo-border">
+      <img [src]="person.photo" [alt]="person.name">
+    </div>
+  </div>
+</header>
