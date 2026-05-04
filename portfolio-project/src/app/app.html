@@ -3,53 +3,14 @@
 
     <!-- ЛІВА КОЛОНКА (50%) -->
     <aside class="column-left">
-      <div class="header-grid">
-        <div class="identity-block">
-          <p class="vertical-text job-title">{{ data.person.position }}</p>
-          <h1 class="vertical-text name">{{ data.person.firstName }} <b>{{ data.person.lastName }}</b></h1>
-        </div>
-        <div class="photo-placeholder">
-          <div class="photo-border">
-            <img src="images/avatar.jpg" alt="Profile" *ngIf="data.person.photo">
-          </div>
-        </div>
-      </div>
+      <app-header [person]="data.person"></app-header>
 
       <div class="content-padding">
-        <section class="section">
-          <div class="left-section-header">
-            <img src="images/bis_ic.png" class="header-icon" alt="about">
-            <h3 class="title-light">ABOUT ME</h3>
-          </div>
-          <p class="text-light-desc">{{ data.person.aboutMe }}</p>
-        </section>
-
-        <section class="section">
-          <div class="left-section-header">
-            <img src="images/edu_ic.png" class="header-icon" alt="education">
-            <h3 class="title-light">EDUCATION</h3>
-          </div>
-          <div class="timeline-container white-line">
-            <div *ngFor="let edu of data.education" class="timeline-item">
-              <p class="item-bold-white">{{ edu.university }}</p>
-              <p class="item-thin-white">{{ edu.degree }}</p>
-              <p class="item-date-cyan">{{ edu.startDate }} — {{ edu.endDate }}</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="left-section-header">
-            <img src="images/dia-ic.png" class="header-icon" alt="skills">
-            <h3 class="title-light">SKILLS</h3>
-          </div>
-          <ul class="skills-list">
-            <li *ngFor="let skill of data.skills">
-              <span class="skill-label">{{ skill.name }}</span>
-              <span class="stars-cyan">{{ '★'.repeat(skill.level) }}{{ '☆'.repeat(5 - skill.level) }}</span>
-            </li>
-          </ul>
-        </section>
+        <app-sidebar
+          [aboutMe]="data.person.aboutMe"
+          [education]="data.education"
+          [skills]="data.skills">
+        </app-sidebar>
       </div>
     </aside>
 
@@ -57,7 +18,7 @@
     <main class="column-right">
       <div class="content-padding">
 
-        <!-- Секція CONTACT ME -->
+        <!-- Секція CONTACT ME (залишаємо в app для простоти) -->
         <section class="section">
           <div class="right-section-header" (click)="toggleSection('contact')" style="cursor: pointer;">
             <img src="images/hum_ic.jpg" class="header-icon" alt="contact">
@@ -77,28 +38,15 @@
           </div>
         </section>
 
-        <!-- Секція JOB EXPERIENCE -->
-        <section class="section">
-          <div class="right-section-header" (click)="toggleSection('experience')" style="cursor: pointer;">
-            <img src="images/lug_ic.jpg" class="header-icon" alt="experience">
-            <h3 class="title-dark">
-              JOB EXPERIENCE
-              <span class="arrow" [class.rotated]="!sectionStatus.experience">▼</span>
-            </h3>
-          </div>
-          <div class="timeline-container dark-line" *ngIf="sectionStatus.experience">
-            <div *ngFor="let job of data.experience" class="timeline-item">
-              <div class="job-header">
-                <span class="job-title-bold">{{ job.position }}</span>
-                <span class="job-period">{{ job.startDate }} — {{ job.endDate }}</span>
-              </div>
-              <p class="job-meta">{{ job.company }} / {{ job.location }}</p>
-              <p class="job-text">{{ job.description }}</p>
-            </div>
-          </div>
-        </section>
+        <!-- Секція JOB EXPERIENCE (окремий компонент) -->
+        <app-experience
+          [jobs]="data.experience"
+          [isOpen]="sectionStatus.experience"
+          (toggle)="toggleSection('experience')">
+        </app-experience>
 
-        <!-- Секція REFERENCES -->
+        <!-- Секція REFERENCES (залишаємо в app) -->
+        <!-- Секція REFERENCES у правій колонці -->
         <section class="section">
           <div class="right-section-header" (click)="toggleSection('references')" style="cursor: pointer;">
             <img src="images/soc_ic.jpg" class="header-icon" alt="references">
@@ -108,9 +56,9 @@
             </h3>
           </div>
 
-          <div class="references-section" *ngIf="sectionStatus.references">
+          <!-- Додаємо ці класи для відображення лінії -->
+          <div class="timeline-container dark-line" *ngIf="sectionStatus.references">
             <div class="timeline-item">
-              <div class="timeline-dot"></div>
               <div class="reference-content">
                 <h4 class="ref-name">Darwin B. Magana</h4>
                 <p class="ref-info">Tel: +1-970-533-3393</p>
@@ -119,7 +67,6 @@
             </div>
 
             <div class="timeline-item">
-              <div class="timeline-dot"></div>
               <div class="reference-content">
                 <h4 class="ref-name">Robert J. Delvin</h4>
                 <p class="ref-info">Tel: +1-908-987-5103</p>

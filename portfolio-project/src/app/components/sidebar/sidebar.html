@@ -1,0 +1,34 @@
+<section class="section">
+  <div class="left-section-header">
+    <img src="images/bis_ic.png" class="header-icon" alt="about">
+    <h3 class="title-light">ABOUT ME</h3>
+  </div>
+  <p class="text-light-desc">{{ aboutMe }}</p>
+</section>
+
+<section class="section">
+  <div class="left-section-header">
+    <img src="images/edu_ic.png" class="header-icon" alt="education">
+    <h3 class="title-light">EDUCATION</h3>
+  </div>
+  <div class="timeline-container white-line">
+    <div *ngFor="let edu of education" class="timeline-item">
+      <p class="item-bold-white">{{ edu.university }}</p>
+      <p class="item-thin-white">{{ edu.degree }}</p>
+      <p class="item-date-cyan">{{ edu.startDate }} — {{ edu.endDate }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="left-section-header">
+    <img src="images/dia-ic.png" class="header-icon" alt="skills">
+    <h3 class="title-light">SKILLS</h3>
+  </div>
+  <ul class="skills-list">
+    <li *ngFor="let skill of skills">
+      <span class="skill-label">{{ skill.name }}</span>
+      <span class="stars-cyan">{{ getStars(skill.level) }}</span>
+    </li>
+  </ul>
+</section>

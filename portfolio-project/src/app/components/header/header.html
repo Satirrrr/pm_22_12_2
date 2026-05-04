@@ -1,0 +1,11 @@
+<div class="header-grid" *ngIf="person">
+  <div class="identity-block">
+    <p class="vertical-text job-title">{{ person.position }}</p>
+    <h1 class="vertical-text name">{{ person.firstName }} <b>{{ person.lastName }}</b></h1>
+  </div>
+  <div class="photo-placeholder">
+    <div class="photo-border">
+      <img [src]="person.photo" alt="Profile" *ngIf="person.photo">
+    </div>
+  </div>
+</div>

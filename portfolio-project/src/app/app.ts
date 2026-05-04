@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ResumeData } from './models/resume-data';
+import { HeaderComponent } from './components/header/header';
+import { SidebarComponent } from './components/sidebar/sidebar';
+import { ExperienceComponent } from './components/experience/experience';
+
 interface SectionStatus {
   contact: boolean;
   experience: boolean;
@@ -9,27 +12,27 @@ interface SectionStatus {
   education: boolean;
   skills: boolean;
 }
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent, SidebarComponent, ExperienceComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-  // Дані відповідають структурі ResumeData та запитам у шаблоні app.html
-  data: ResumeData = {
+  data = {
     person: {
       firstName: "NOEL",
       lastName: "GATES",
       position: "GRAPHIC & WEB DESIGNER",
       aboutMe: "Highly motivated and results-oriented professional with a passion for creating visually stunning and user-friendly digital experiences.",
-      photo: "images/avatar.jpg", // Поле для *ngIf="data.person.photo"
-      phone: "+1-718-310-5588",   // Поле для {{ data.person.phone }}
-      email: "yourinfo@gmail.com", // Поле для {{ data.person.email }}
-      address: "769 Prudence Street Lincoln Park, MI 48146" // Поле для {{ data.person.address }}
+      photo: "images/avatar.jpg",
+      phone: "+1-718-310-5588",
+      email: "yourinfo@gmail.com",
+      address: "769 Prudence Street Lincoln Park, MI 48146"
     },
-    education: [ // Додано масив для *ngFor="let edu of data.education"
+    education: [
       {
         university: "STANFORD UNIVERSITY",
         degree: "MASTER DEGREE GRADUATE",
@@ -44,13 +47,13 @@ export class App {
       }
     ],
     skills: [
-      { name: "Adobe Photoshop", level: 5 }, // Змінено на level (number) для '★'.repeat()
+      { name: "Adobe Photoshop", level: 5 },
       { name: "HTML5 / CSS3", level: 5 },
       { name: "JavaScript (ES6+)", level: 4 },
       { name: "SASS / SCSS", level: 4 },
       { name: "Gulp / Webpack", level: 5 }
     ],
-    experience: [ // Перейменовано з jobExperience на experience для шаблону
+    experience: [
       {
         position: "WEB DESIGNER",
         company: "Creative Agency",
@@ -70,7 +73,7 @@ export class App {
     ]
   };
 
-sectionStatus: SectionStatus = {
+  sectionStatus: SectionStatus = {
     contact: true,
     experience: true,
     references: true,
@@ -79,9 +82,7 @@ sectionStatus: SectionStatus = {
     skills: true
   };
 
-  // 2. Метод перемикання стану
-  // Використовуємо Union Type для sectionName, щоб суворо обмежити назви секцій
   toggleSection(sectionName: keyof SectionStatus) {
-      this.sectionStatus[sectionName] = !this.sectionStatus[sectionName];
-    }
+    this.sectionStatus[sectionName] = !this.sectionStatus[sectionName];
+  }
 }
