@@ -1,0 +1,15 @@
+/* Bootstrap */
+@use "bootstrap/scss/bootstrap";
+
+/* Змінні та міксини для глобального використання */
+@use "app/scss/abstract/variables" as *;
+@use "app/scss/abstract/mixins" as *;
+
+/* Компоненти */
+@use "app/scss/components/typography";
+@use "app/scss/components/utility";
+
+body {
+    background-color: $color-bg-dark;
+    margin: 0;
+}
