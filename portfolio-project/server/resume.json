@@ -1,0 +1,53 @@
+{
+  "person": {
+    "name": "Noel Gates",
+    "jobTitle": "Graphic & Web Designer",
+    "photo": "images/avatar.jpg",
+    "aboutMe": "Highly motivated and results-oriented professional with a passion for creating visually stunning and user-friendly digital experiences."
+  },
+  "education": [
+    {
+      "university": "Stanford University",
+      "degree": "Master Degree Graduate",
+      "period": "2011 — 2013"
+    },
+    {
+      "university": "University of Chicago",
+      "degree": "Bachelor Degree Graduate",
+      "period": "2007 — 2010"
+    }
+  ],
+  "skills": [
+    { "name": "Adobe Photoshop", "level": 5 },
+    { "name": "HTML5 / CSS3", "level": 5 },
+    { "name": "JavaScript (ES6+)", "level": 4 },
+    { "name": "SASS / SCSS", "level": 4 },
+    { "name": "Gulp / Webpack", "level": 4 }
+  ],
+  "experience": [
+    {
+      "title": "Web Designer",
+      "company": "Creative Agency / Chicago",
+      "period": "2020 — Present",
+      "description": "Led the redesign of the company's flagship e-commerce platform, resulting in a 25% increase in conversion rates."
+    },
+    {
+      "title": "Graphic Designer",
+      "company": "Creative Market / Chicago",
+      "period": "2015 — 2020",
+      "description": "Developed over 50 brand identity packages for international clients."
+    }
+  ],
+  "references": [
+    {
+      "name": "Darwin B. Magana",
+      "tel": "+1-970-533-3393",
+      "email": "www.yourwebsite.com"
+    },
+    {
+      "name": "Robert J. Delvin",
+      "tel": "+1-908-987-5103",
+      "email": "www.yourwebsite.com"
+    }
+  ]
+}
