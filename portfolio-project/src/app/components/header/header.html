@@ -1,20 +1,23 @@
-<header class="header-grid" *ngIf="person">
-  <!-- Блок з вертикальним текстом -->
+@if (person) {
+<header class="header-grid">
   <div class="identity-block">
-    <div class="vertical-text job-title">
-      {{ person.jobTitle }}
+    @if (isEditing) {
+    <div class="edit-inputs">
+      <input [(ngModel)]="person.name" class="name-input" placeholder="Ім'я">
+      <input [(ngModel)]="person.jobTitle" class="job-input" placeholder="Посада">
     </div>
+    } @else {
+    <div class="vertical-text job-title">{{ person.jobTitle }}</div>
     <div class="vertical-text name">
-      <!-- Розбиваємо ім'я на частини, щоб зробити перше слово жирним -->
-      <b>{{ person.name.split(' ')[0] }}</b>
-      {{ person.name.split(' ').slice(1).join(' ') }}
+      <b>{{ person.name.split(' ')[0] }}</b> {{ person.name.split(' ')[1] }}
     </div>
+    }
   </div>
 
-  <!-- Блок з фотографією -->
   <div class="photo-placeholder">
     <div class="photo-border">
       <img [src]="person.photo" [alt]="person.name">
     </div>
   </div>
 </header>
+}

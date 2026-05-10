@@ -1,73 +1,143 @@
-<!-- Контейнер з'явиться лише тоді, коли дані завантажені -->
-<div class="resume-wrapper" *ngIf="data; else loadingTemplate">
-  <div class="resume-container">
+@if (data) {
+<div class="resume-wrapper">
+  <div class="edit-controls">
+    <button (click)="toggleEdit()" class="edit-toggle-btn">
+      {{ isEditing ? 'Скасувати' : 'Редагувати вміст' }}
+    </button>
+    @if (isEditing) {
+    <button (click)="saveResume()" class="save-btn-top">Зберегти на сервері</button>
+    }
+  </div>
 
-    <!-- Ліва колонка -->
+  <div class="resume-container">
     <aside class="column-left">
-      <app-header [person]="data.person"></app-header>
+      <app-header [person]="data.person" [isEditing]="isEditing"></app-header>
+
       <div class="content-padding">
-        <app-sidebar
-          [aboutMe]="data.person.aboutMe"
-          [education]="data.education"
-          [skills]="data.skills">
-        </app-sidebar>
+        <section class="section-left">
+          <h3 class="title-light">ABOUT ME</h3>
+          @if (isEditing) {
+          <textarea [(ngModel)]="data.person.aboutMe" class="edit-area-dark"></textarea>
+          } @else {
+          <p class="about-text">{{ data.person.aboutMe }}</p>
+          }
+        </section>
+
+        <section class="section-left">
+          <h3 class="title-light">EDUCATION</h3>
+          <div class="timeline-wrapper-left">
+            @for (edu of data.education; track edu.university) {
+            <div class="timeline-item-left">
+              <div class="dot"></div>
+              <div class="content">
+                <p class="period">{{ edu.period }}</p>
+                <h4 class="uni">{{ edu.university }}</h4>
+                <p class="degree">{{ edu.degree }}</p>
+              </div>
+            </div>
+            }
+          </div>
+        </section>
+
+        <section class="section-left">
+          <h3 class="title-light">SKILLS</h3>
+          @for (skill of data.skills; track skill.name) {
+          <div class="skill-item">
+            <div class="skill-header">
+              @if (isEditing) {
+              <input [(ngModel)]="skill.name" class="input-dark">
+              <input type="number" [(ngModel)]="skill.level" min="1" max="5" class="input-dark-short">
+              } @else {
+              <span class="skill-name">{{ skill.name }}</span>
+              <div class="stars-container">
+                @for (star of [1,2,3,4,5]; track star) {
+                <span class="star" [class.filled]="star <= skill.level">★</span>
+                }
+              </div>
+              }
+            </div>
+          </div>
+          }
+        </section>
       </div>
     </aside>
 
-    <!-- Права колонка -->
     <main class="column-right">
       <div class="content-padding">
-
-        <!-- Контакти -->
         <section class="section">
-          <div class="right-section-header" (click)="toggleSection('contact')" style="cursor: pointer;">
+          <div class="right-section-header">
             <img src="images/hum_ic.jpg" class="header-icon" alt="contact">
-            <h3 class="title-dark">CONTACT ME <span class="arrow" [class.rotated]="!sectionStatus.contact">▼</span></h3>
+            <h3 class="title-dark">CONTACT ME</h3>
           </div>
-          <ul class="contact-details" *ngIf="sectionStatus.contact">
-            <li><b>Phone:</b> +1-718-310-5588</li>
-            <li><b>Email:</b> yourinfo@gmail.com</li>
-            <li><b>Address:</b> 769 Prudence Street Lincoln Park, MI 48146</li>
+          <ul class="contact-details">
+            <li>
+              <b>Phone:</b>
+              @if (isEditing) { <input [(ngModel)]="data.person.phone" class="input-light"> }
+              @else { {{ data.person.phone }} }
+            </li>
+            <li>
+              <b>Email:</b>
+              @if (isEditing) { <input [(ngModel)]="data.person.email" class="input-light"> }
+              @else { {{ data.person.email }} }
+            </li>
+            <li>
+              <b>Web:</b>
+              @if (isEditing) { <input [(ngModel)]="data.person.website" class="input-light"> }
+              @else { {{ data.person.website }} }
+            </li>
           </ul>
         </section>
 
-        <!-- Досвід роботи -->
-        <app-experience
-          [jobs]="data.experience"
-          [isOpen]="sectionStatus.experience"
-          (toggle)="toggleSection('experience')">
-        </app-experience>
-
-        <!-- Референси -->
         <section class="section">
-          <div class="right-section-header" (click)="toggleSection('references')" style="cursor: pointer;">
-            <img src="images/soc_ic.jpg" class="header-icon" alt="references">
-            <h3 class="title-dark">REFERENCES <span class="arrow" [class.rotated]="!sectionStatus.references">▼</span></h3>
+          <div class="right-section-header">
+            <img src="images/lug_ic.jpg" class="header-icon" alt="experience">
+            <h3 class="title-dark">WORK EXPERIENCE</h3>
           </div>
-          <div class="timeline-container dark-line" *ngIf="sectionStatus.references">
-            <div class="timeline-item" *ngFor="let ref of data.references">
-              <div class="reference-content">
-                <h4 class="ref-name">{{ ref.name }}</h4>
-                <p class="ref-info">Tel: {{ ref.tel }}</p>
-                <p class="ref-info">Email: {{ ref.email }}</p>
+          <div class="timeline-container">
+            @for (job of data.experience; track job.company) {
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                @if (isEditing) {
+                <input [(ngModel)]="job.period" class="input-light-small">
+                <input [(ngModel)]="job.title" class="input-light-bold">
+                <input [(ngModel)]="job.company" class="input-light-cyan">
+                <textarea [(ngModel)]="job.description" class="area-light"></textarea>
+                } @else {
+                <h4 class="job-title">{{ job.title }}</h4>
+                <p class="job-company">{{ job.company }} | {{ job.period }}</p>
+                <p class="job-desc">{{ job.description }}</p>
+                }
               </div>
             </div>
+            }
           </div>
         </section>
 
-        <!-- Кнопка для перевірки POST-запиту -->
-        <button (click)="saveResume()" class="save-btn">Зберегти зміни на сервері</button>
-
+        <section class="section">
+          <div class="right-section-header">
+            <img src="images/soc_ic.jpg" class="header-icon" alt="references">
+            <h3 class="title-dark">REFERENCES</h3>
+          </div>
+          <div class="timeline-container">
+            @for (ref of data.references; track ref.name) {
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                @if (isEditing) {
+                <input [(ngModel)]="ref.name" class="input-light-bold">
+                <input [(ngModel)]="ref.tel" class="input-light-small">
+                } @else {
+                <h4 class="ref-name">{{ ref.name }}</h4>
+                <p class="ref-info">Tel: {{ ref.tel }}</p>
+                }
+              </div>
+            </div>
+            }
+          </div>
+        </section>
       </div>
     </main>
-
   </div>
 </div>
-
-<!-- Шаблон, який відображається під час запиту -->
-<ng-template #loadingTemplate>
-  <div class="loading-screen">
-    <h2 *ngIf="!errorMessage">Завантаження даних...</h2>
-    <h2 *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</h2>
-  </div>
-</ng-template>
+}

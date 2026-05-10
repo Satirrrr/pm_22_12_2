@@ -1,80 +1,338 @@
+// Головний контейнер
 .resume-wrapper {
-  background: #f0f2f5;
-  padding: 50px 0;
+  background: #f4f4f4;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .resume-container {
   display: flex;
-  width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
   background: white;
-  min-height: 1200px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+// Колонки
 .column-left {
-  flex: 0 0 450px; // Фіксована ширина лівої колонки
-  background: #1a2b34;
+  width: 35%;
+  background: #1a2b34; // Темний фон як у хедері
   color: white;
 }
 
 .column-right {
-  flex: 1;
+  width: 65%;
   background: white;
+  color: #333;
 }
 
 .content-padding {
-  padding: 40px;
+  padding: 30px;
 }
 
-// Стилі для секції контактів та референсів (якщо вони залишились в app.html)
-.contact-details {
-  list-style: none;
-  padding: 0;
-  li { margin-bottom: 8px; color: #4a5568; font-size: 13px; }
+// Заголовки
+.title-light {
+  color: #00bcd4;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
 }
 
-.reference-content {
-  .ref-name { font-weight: bold; text-transform: uppercase; color: #1a2b34; }
-  .ref-info { font-size: 12px; color: #718096; margin: 2px 0; }
+.title-dark {
+  color: #1a2b34;
+  border-bottom: 2px solid #1a2b34;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
 }
-// Стилі для таймлайну в REFERENCES
-.dark-line {
-  border-left: 2px solid #00bcd4;
-  margin-left: 10px;
-  padding-left: 30px;
-  position: relative;
 
-  .timeline-item {
-    position: relative;
-    margin-bottom: 25px;
+// Елементи інтерфейсу редагування
+.edit-toggle-btn {
+  background: #00bcd4;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background 0.3s;
 
-    // Малюємо точку на лінії
-    &::before {
-      content: "";
-      position: absolute;
-      left: -37px; // Вирівнюємо точно по лінії
-      top: 5px;
-      width: 12px;
-      height: 12px;
-      background: #00bcd4;
-      border-radius: 50%;
-      z-index: 2;
+  &:hover { background: #0097a7; }
+}
+
+.save-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 20px;
+
+  &:hover { background: #45a049; }
+}
+
+// Стилізація інпутів у режимі редагування
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.column-left input, .column-left textarea {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-color: #00bcd4;
+}
+
+// Секції в правій колонці
+.section {
+  margin-bottom: 30px;
+
+  .right-section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+
+    .header-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
     }
   }
 }
 
-.reference-content {
-  .ref-name {
-    font-size: 14px;
-    font-weight: 700;
+// Досвід роботи
+.experience-item {
+  margin-bottom: 20px;
+  .job-title { font-weight: bold; margin: 0; color: #1a2b34; }
+  .job-company { color: #00bcd4; font-size: 14px; margin: 2px 0; }
+  .job-desc { font-size: 14px; line-height: 1.5; color: #666; }
+}
+// Загальне зменшення тексту
+body {
+  font-size: 13px; // Базовий розмір як у референсі
+}
+
+.about-text, .job-desc, .ref-info {
+  font-size: 11px; // Дрібний текст опису
+  line-height: 1.6;
+  color: #666;
+  text-align: justify;
+}
+
+// Змінні для зручності
+$accent-cyan: #00bcd4;
+$primary-dark: #1a2b34;
+
+.timeline-container {
+  position: relative;
+  padding-left: 25px; // Трохи збільшив відступ, щоб точкам було просторо
+  margin-left: 10px;
+  border-left: 2px solid $accent-cyan; // Лінія тепер бірюзова і трохи товща
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 25px;
+
+    &:last-child {
+      padding-bottom: 0;
+      // Якщо хочеш, щоб лінія закінчувалася на останній точці:
+      border-left: 2px solid transparent;
+      margin-left: -2px;
+    }
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -33px; // Вирівнювання точно по центру лінії (25px відступу + половина ширини точки
+    top: 4px;
+    width: 15px;
+    height: 15px;
+    background: $accent-cyan; // Точка тепер теж бірюзова
+    border-radius: 50%;
+    border: 2px solid white; // Додав білу обводку, щоб вона "відривалася" від лінії як на референсі
+    z-index: 2;
+  }
+
+  .timeline-content {
+    h4 {
+      font-size: 13px;
+      color: $primary-dark;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .job-company, .ref-info {
+      color: $accent-cyan;
+      font-weight: bold;
+      font-size: 11px;
+      margin: 2px 0 5px 0;
+    }
+  }
+}
+$accent-cyan: #00bcd4;
+$primary-dark: #1a2b34;
+
+.edit-controls {
+  max-width: 1000px;
+  margin: 0 auto 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+// Стилі для інпутів у темній колонці (зліва)
+.input-dark, .edit-area-dark {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba($accent-cyan, 0.3);
+  color: white;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 11px;
+  padding: 4px;
+  &:focus { border-color: $accent-cyan; outline: none; }
+}
+
+// Стилі для інпутів у світлій колонці (справа)
+.input-light, .input-light-bold, .area-light {
+  border: 1px solid #ddd;
+  width: 100%;
+  padding: 4px;
+  margin-bottom: 3px;
+  font-size: 11px;
+  display: block;
+}
+
+.input-light-bold { font-weight: bold; color: $primary-dark; }
+.input-light-cyan { color: $accent-cyan; font-weight: bold; border: 1px solid #ddd; }
+
+.save-btn-top {
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  &:hover { background: #1b5e20; }
+}
+
+// Щоб текст не "стрибав" при переході в режим редагування
+.timeline-content input, .timeline-content textarea {
+  font-family: inherit;
+}
+$accent-cyan: #00bcd4;
+
+// ТАЙМЛАЙН ЗЛІВА
+.timeline-wrapper-left {
+  position: relative;
+  margin-left: 10px;
+  padding-left: 20px;
+  border-left: 1px solid rgba($accent-cyan, 0.5); // Тонка лінія
+
+  .timeline-item-left {
+    position: relative;
+    margin-bottom: 25px;
+
+    .dot {
+      position: absolute;
+      left: -25px; // Точно на лінії
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      background: $accent-cyan;
+      border-radius: 50%;
+    }
+
+    .period { font-size: 14px; color: white; margin-bottom: 5px; }
+    .uni { font-size: 13px; color: white; font-weight: bold; margin: 5px 0; }
+    .degree { font-size: 12px; color: rgba(255, 255, 255, 0.7); }
+  }
+}
+
+// НАВИЧКИ (SKILLS)
+.skill-row {
+  margin-bottom: 15px;
+  width: 100%;
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between; // Назва зліва, відсотки справа
+    margin-bottom: 8px;
+
+    .skill-name {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .skill-percent {
+      font-size: 11px;
+      color: $accent-cyan;
+    }
+  }
+
+  .skill-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1); // Темний фон доріжки
+
+    .skill-fill {
+      height: 100%;
+      background: $accent-cyan; // Бірюзова заливка
+      box-shadow: 0 0 5px rgba($accent-cyan, 0.5);
+    }
+  }
+}
+
+.skill-item {
+  margin-bottom: 12px;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .skill-name {
+    font-size: 11px;
     text-transform: uppercase;
-    color: #1a2b34;
-    margin: 0 0 5px 0;
+    color: white;
+    letter-spacing: 0.5px;
   }
-  .ref-info {
-    font-size: 12px;
-    color: #718096;
-    margin: 2px 0;
+}
+
+.stars-container {
+  display: flex;
+  gap: 3px;
+
+  .star {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.2); // Колір порожньої зірочки
+    line-height: 1;
+
+    &.filled {
+      color: #00bcd4; // Колір замальованої зірочки (бірюзовий)
+    }
   }
+}
+
+// Стиль для інпуту рівня в режимі редагування
+.input-dark-short {
+  width: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00bcd4;
+  color: white;
+  font-size: 11px;
+  padding: 2px;
+  text-align: center;
 }

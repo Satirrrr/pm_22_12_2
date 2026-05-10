@@ -1,21 +1,15 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Додай цей імпорт
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule], // Обов'язково додай FormsModule сюди
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class HeaderComponent {
-  // Дані приходять з app.html через [person]="data.person"
   @Input() person: any;
-
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  // Метод для оновлення, якщо дані зміняться динамічно
-  ngOnChanges() {
-    this.cdr.detectChanges();
-  }
+  @Input() isEditing: boolean = false; // Додай цю властивість
 }
