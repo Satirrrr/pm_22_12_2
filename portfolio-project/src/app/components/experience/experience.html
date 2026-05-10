@@ -6,14 +6,19 @@
       <span class="arrow" [class.rotated]="!isOpen">▼</span>
     </h3>
   </div>
-  <div class="timeline-container dark-line" *ngIf="isOpen">
-    <div *ngFor="let job of jobs" class="timeline-item">
+
+  @if (isOpen) {
+  <div class="timeline-container dark-line">
+    @for (job of jobs; track job.company) {
+    <div class="timeline-item">
       <div class="job-header">
-        <span class="job-title-bold">{{ job.position }}</span>
+        <span class="job-title-bold">{{ job.title }}</span>
         <span class="job-period">{{ job.startDate }} — {{ job.endDate }}</span>
       </div>
       <p class="job-meta">{{ job.company }} / {{ job.location }}</p>
       <p class="job-text">{{ job.description }}</p>
     </div>
+    }
   </div>
+  }
 </section>

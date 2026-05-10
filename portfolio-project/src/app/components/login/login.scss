@@ -1,0 +1,136 @@
+$accent-cyan: #00bcd4;
+$primary-dark: #1a2b34;
+
+.login-wrapper {
+  min-height: 100vh;
+  background: $primary-dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.login-header {
+  background: $primary-dark;
+  padding: 40px 40px 30px;
+  text-align: center;
+  border-bottom: 3px solid $accent-cyan;
+
+  .login-logo {
+    font-size: 36px;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+
+    .logo-accent { color: $accent-cyan; }
+  }
+
+  .login-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 8px;
+  }
+
+  .login-subtitle {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    margin: 0;
+  }
+}
+
+.login-form {
+  padding: 35px 40px 40px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $primary-dark;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $accent-cyan;
+  }
+
+  &.input-error {
+    border-color: #f44336;
+  }
+}
+
+.error-msg {
+  display: block;
+  color: #f44336;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.error-banner {
+  background: #fff3f3;
+  border-left: 3px solid #f44336;
+  color: #c62828;
+  padding: 10px 15px;
+  font-size: 12px;
+  margin-bottom: 20px;
+  border-radius: 0 4px 4px 0;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: $accent-cyan;
+  color: white;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover:not(:disabled) {
+    background: color-mix(in srgb, $accent-cyan 80%, black);
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.login-hint {
+  text-align: center;
+  font-size: 11px;
+  color: #aaa;
+  margin: 15px 0 0;
+}

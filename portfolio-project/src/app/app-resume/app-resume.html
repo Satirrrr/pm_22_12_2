@@ -1,0 +1,155 @@
+@if (data) {
+<div class="resume-wrapper">
+
+  <!-- Кнопки керування -->
+  <div class="edit-controls">
+    <span class="user-info">👤 {{ currentUser }}</span>
+    <button (click)="logout()" class="btn-action btn-logout">Вийти</button>
+    @if (isEditing) {
+      <button (click)="saveResume()" class="btn-action btn-save">Зберегти</button>
+    }
+    <button (click)="toggleEdit()" class="btn-action btn-edit">
+      {{ isEditing ? 'Скасувати' : 'Редагувати вміст' }}
+    </button>
+  </div>
+
+  <div class="resume-container">
+
+    <!-- ЛІВА КОЛОНКА -->
+    <aside class="column-half left-bg">
+      <app-header [person]="data.person" [isEditing]="isEditing"></app-header>
+      <div class="content-padding">
+        <app-sidebar
+          [aboutMe]="data.person.aboutMe"
+          [education]="data.education"
+          [skills]="data.skills">
+        </app-sidebar>
+      </div>
+    </aside>
+
+    <!-- ПРАВА КОЛОНКА -->
+    <main class="column-half right-bg">
+      <div class="content-padding">
+
+        <!-- CONTACT ME -->
+        <section class="section">
+          <div class="right-section-header">
+            <h3 class="title-dark-sm">CONTACT ME</h3>
+          </div>
+          <div class="timeline-container">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <b>Phone:</b>
+                @if (isEditing) {
+                  <input [(ngModel)]="data.person.phone" class="input-light">
+                } @else {
+                  <span> {{ data.person.phone }}</span>
+                }
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <b>Email:</b>
+                @if (isEditing) {
+                  <input [(ngModel)]="data.person.email" class="input-light">
+                } @else {
+                  <span> {{ data.person.email }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- JOB EXPERIENCE -->
+        <app-experience
+          [jobs]="data.experience"
+          [isOpen]="isExperienceOpen"
+          (toggle)="toggleExperience()">
+        </app-experience>
+
+        <!-- REFERENCES -->
+        <section class="section">
+          <div class="right-section-header">
+            <h3 class="title-dark-sm">REFERENCES</h3>
+          </div>
+          <div class="timeline-container">
+            @for (ref of data.references; track ref.name) {
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  @if (isEditing) {
+                    <input [(ngModel)]="ref.name" class="input-light-bold">
+                    <input [(ngModel)]="ref.tel" class="input-light">
+                  } @else {
+                    <h4 class="ref-name">{{ ref.name }}</h4>
+                    <p class="ref-info">Tel: {{ ref.tel }}</p>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+
+        <!-- РЕАКТИВНА ФОРМА: Додати досвід -->
+        @if (isEditing) {
+          <div class="reactive-form-box">
+            <h4 class="form-title">➕ Додати новий досвід роботи</h4>
+            <div [formGroup]="experienceForm">
+
+              <div class="form-group">
+                <input formControlName="title" placeholder="Посада *" class="input-light">
+                @if (experienceForm.get('title')?.invalid && experienceForm.get('title')?.touched) {
+                  <span class="error-msg">Мінімум 3 символи</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <input formControlName="company" placeholder="Компанія *" class="input-light">
+                @if (experienceForm.get('company')?.invalid && experienceForm.get('company')?.touched) {
+                  <span class="error-msg">Обов'язкове поле</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <input formControlName="location" placeholder="Місто *" class="input-light">
+                @if (experienceForm.get('location')?.invalid && experienceForm.get('location')?.touched) {
+                  <span class="error-msg">Обов'язкове поле</span>
+                }
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <input formControlName="startDate" placeholder="Рік початку *" class="input-light">
+                  @if (experienceForm.get('startDate')?.invalid && experienceForm.get('startDate')?.touched) {
+                    <span class="error-msg">Обов'язкове поле</span>
+                  }
+                </div>
+                <div class="form-group">
+                  <input formControlName="endDate" placeholder="Рік кінця *" class="input-light">
+                  @if (experienceForm.get('endDate')?.invalid && experienceForm.get('endDate')?.touched) {
+                    <span class="error-msg">Обов'язкове поле</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group">
+                <textarea formControlName="description" placeholder="Опис (макс. 200 символів) *" rows="3" class="input-light"></textarea>
+                @if (experienceForm.get('description')?.invalid && experienceForm.get('description')?.touched) {
+                  <span class="error-msg">Обов'язкове поле, максимум 200 символів</span>
+                }
+              </div>
+
+              <button class="btn-add" (click)="addExperience()" [disabled]="experienceForm.invalid">
+                Додати
+              </button>
+            </div>
+          </div>
+        }
+
+      </div>
+    </main>
+  </div>
+</div>
+}

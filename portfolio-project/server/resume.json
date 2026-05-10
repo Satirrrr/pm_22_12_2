@@ -4,18 +4,23 @@
     "jobTitle": "Graphic & Web Designer",
     "photo": "images/avatar.jpg",
     "aboutMe": "Highly motivated and results-oriented professional with a passion for creating visually stunning and user-friendly digital experiences.",
-    "phone": "068 338 1170"
+    "phone": "068 338 1170",
+    "email": "noa.gates@email.com"
   },
   "education": [
     {
       "university": "Stanford University",
       "degree": "Master Degree Graduate",
-      "period": "2011 — 2013"
+      "period": "2011 — 2013",
+      "startDate": "2011",
+      "endDate": "2013"
     },
     {
       "university": "University of Chicago",
       "degree": "Bachelor Degree Graduate",
-      "period": "2007 — 2010"
+      "period": "2007 — 2010",
+      "startDate": "2007",
+      "endDate": "2010"
     }
   ],
   "skills": [
@@ -24,34 +29,54 @@
       "level": 5
     },
     {
-      "name": "HTML5 / CSS3",
+      "name": "Adobe Illustrator",
       "level": 5
     },
     {
-      "name": "JavaScript (ES6+)",
+      "name": "Microsoft Word",
       "level": 4
     },
     {
-      "name": "SASS / SCSS",
+      "name": "Microsoft PowerPoint",
       "level": 4
     },
     {
-      "name": "Gulp / Webpack",
+      "name": "HTML5 / CSS3",
       "level": 4
     }
   ],
   "experience": [
     {
       "title": "Web Designer",
-      "company": "Creative Agency / Chicago",
-      "period": "2020 — Present",
+      "company": "Creative Agency",
+      "location": "Chicago",
+      "startDate": "2020",
+      "endDate": "Present",
       "description": "Led the redesign of the company's flagship e-commerce platform, resulting in a 25% increase in conversion rates."
     },
     {
       "title": "Graphic Designer",
-      "company": "Creative Market / Chicago",
-      "period": "2015 — 2020",
+      "company": "Creative Market",
+      "location": "Chicago",
+      "startDate": "2015",
+      "endDate": "2020",
       "description": "Developed over 50 brand identity packages for international clients."
+    },
+    {
+      "title": "Marketing Manager",
+      "company": "Manufacturing Agency",
+      "location": "NJ",
+      "startDate": "2013",
+      "endDate": "2015",
+      "description": "Managed brand communication strategies and coordinated marketing campaigns across multiple channels."
+    },
+    {
+      "title": "3d Designer",
+      "company": "FromSoftware",
+      "location": "Dublin",
+      "startDate": "2020",
+      "endDate": "today",
+      "description": "character designer"
     }
   ],
   "references": [

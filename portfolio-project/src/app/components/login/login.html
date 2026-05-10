@@ -1,0 +1,61 @@
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <div class="login-header">
+      <div class="login-logo">
+        <span class="logo-accent">N</span>G
+      </div>
+      <h1 class="login-title">Увійти в систему</h1>
+      <p class="login-subtitle">Введіть дані для доступу до резюме</p>
+    </div>
+
+    <div [formGroup]="loginForm" class="login-form">
+
+      <div class="form-group">
+        <label class="form-label">Логін</label>
+        <input
+          formControlName="username"
+          type="text"
+          class="form-input"
+          [class.input-error]="usernameControl?.invalid && usernameControl?.touched"
+          placeholder="Введіть логін">
+        @if (usernameControl?.invalid && usernameControl?.touched) {
+          <span class="error-msg">
+            @if (usernameControl?.errors?.['required']) { Поле обов'язкове }
+            @else if (usernameControl?.errors?.['minlength']) { Мінімум 3 символи }
+          </span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Пароль</label>
+        <input
+          formControlName="password"
+          type="password"
+          class="form-input"
+          [class.input-error]="passwordControl?.invalid && passwordControl?.touched"
+          placeholder="Введіть пароль">
+        @if (passwordControl?.invalid && passwordControl?.touched) {
+          <span class="error-msg">
+            @if (passwordControl?.errors?.['required']) { Поле обов'язкове }
+            @else if (passwordControl?.errors?.['minlength']) { Мінімум 6 символів }
+          </span>
+        }
+      </div>
+
+      @if (errorMessage) {
+        <div class="error-banner">{{ errorMessage }}</div>
+      }
+
+      <button
+        class="btn-login"
+        (click)="onSubmit()"
+        [disabled]="isLoading">
+        {{ isLoading ? 'Завантаження...' : 'Увійти' }}
+      </button>
+
+      <p class="login-hint">Підказка: <b>admin</b> / <b>admin123</b></p>
+    </div>
+
+  </div>
+</div>
